@@ -3,9 +3,9 @@ alias c=cat q=test e=echo
 rm -r O;mkdir -p O
 q -f L||e '`c $F`'>L
 q -d S&&cp -r S O/
-for F in I/*;do
-q -f "$F"&& (e $F
 X(){ eval "$(e 'c<<';c "$@";e;e )";}
+for F in I/*
+do q -f "$F"&&(e $F
 N="${F#I/}"
 T(){ sed 1q "$F";}
 B(){ sed 1d "$F";}
