@@ -9,11 +9,11 @@ that all fits within 1000 bytes.
 There are three main scripts:
 
 <ul>
-    <li><strong>UNK</strong> (253 bytes), a POSIX-sh script that applies
+    <li><strong>UNK</strong> (239 bytes), a POSIX-sh script that applies
         the template to each page and publishes them to the output dir,</li>
     <li><strong>LHT</strong> (241 bytes), an awk script that serves as
         a (very) basic markup language, and</li>
-    <li><strong>TM</strong> (502 bytes),
+    <li><strong>L</strong> (502 bytes),
         the default template script for <strong>UNK</strong>.</li>
 </ul>
 
@@ -37,7 +37,7 @@ and involved as you like, but it's pretty good already:
 <a href="https://github.com/duckwork/unk"><strong>GITHUB MIRROR</strong></a>
 
 To install __UNK__, simply clone this repo and put it where you want it.
-The default __TM__ needs __LHT__ to be in the same directory as it,
+The default __L__ needs __LHT__ to be in the same directory as it,
 so keep that in mind.
 
 To run __UNK__, just `cd` into your cloned repo and run `./unk`.
@@ -49,7 +49,7 @@ It's just a POSIX shell script.
 
 __UNK__ takes a set of files in a directory, applies a template to them,
 and output them into another directory as HTML files ready for a server.
-To keep a very small size, __UNK__ delegates most file processing to __TM__,
+To keep a very small size, __UNK__ delegates most file processing to __L__,
 the main template.  It delegates by using an idea found in
 <a href="https://github.com/zimbatm/shab">shab</a>:
 each input file is read as a `heredoc`, which enables
@@ -69,14 +69,14 @@ Content goes into the following (hard-coded) directories:
         website, ready for <code>rsync</code>ing to a server.</li>
 </ul>
 
-If there is no __TM__ in the directory where __UNK__ is run,
+If there is no __L__ in the directory where __UNK__ is run,
 one will be created that will simply `cat` the file being processed.
 
-The following variable is made available to __TM__:
+The following variable is made available to __L__:
 
 <ul>
     <li><strong>F</strong>: the <em>File</em> name passed to
-        <strong>TM</strong></li>
+        <strong>L</strong></li>
     <li><strong>N</strong>: the <em>fileName</em>
         (with directories removed) of the file being processed</li>
 </ul>
@@ -89,7 +89,7 @@ as well as these functions:
         It is much simpler than <code>shab</code>,
         and will fail if the template
         (or if it nests templates, one of the nested ones)
-        has a <code>ZZ</code> on a line by itself,
+        has a <code>^D</code> on a line by itself,
         due to its <code>heredoc</code> nature.</li>
     <li><strong>T</strong>, for <em>Title</em>:
         it'll return the first line of the current file.</li>
@@ -107,7 +107,7 @@ in the script, but they can be used in templates):
 </ul>
 
 As mentioned above, templates can be nested.
-Simply call another template from __TM__ with the __X__ function.
+Simply call another template from __L__ with the __X__ function.
 
 <h2>lht</h2>
 
